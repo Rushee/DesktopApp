@@ -1,0 +1,67 @@
+ h1 {
+            margin: 0 0 1em;
+            padding: 0.5em;
+        }
+        p.description {
+            font-size: 0.8em;
+            padding: 1em;
+            position: absolute;
+            top: 3.2em;
+            margin-right: 400px;
+        }
+        #message {
+            font-size: 0.7em;
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            width: 350px;
+            display: none;
+            padding: 1em;
+            background: #ffc;
+            border: 1px solid #dda;
+        }
+        .backToFullCalenderDisplay {
+            display: none;
+        }
+        .markCompleted {
+            display: none;
+        }
+        .inputTitle {
+            font-family: Times New Roman !important;
+        }
+        .hideNotification {
+            display: none;
+        }
+		#calendar{
+			width: 75%; 
+			float: right; 
+			border: 3px double #DFF0D8;
+		}
+		.right{
+			width: 21%; 
+			float: left; 
+			margin-left: 10px; 
+			background: #fff; 
+			padding: 1%;
+		}
+		.backToFullCalender{
+			margin-left: -59%; 
+			margin-top: -10px;
+		}
+		.notification{
+			margin-top: 8px; 
+			background: #fff; 
+			border-left: 5px solid #F0AD4E; 
+			border-top: 1px solid #ddd; 
+			border-right: 1px solid #ddd; 
+			border-bottom: 1px solid #ddd;
+		}
+		#calTwo{
+			padding: 6%; 
+			background: #fff; 
+			width: 100% !important; 
+			border-left: 4px solid #428BCA; 
+			border-top: 1px solid #ddd; 
+			border-right: 1px solid #ddd; 
+			border-bottom: 1px solid #ddd;
+		}

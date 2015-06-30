@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="assets/css/jquery.contextMenu.css" />
+    <link rel="stylesheet" href="assets/css/Notes.css" />
+    <link href="assets/css/bootstrap.css" rel='stylesheet' />
+    <link href="assets/css/custom.css" rel='stylesheet' />
+    <link rel="stylesheet" href="assets/css/onLineTestStyle.css" />
+	<script type="text/javascript" src="js/checkForInternetJs.js"></script>
+    <style>
+        .showNotesHide {
+            display: none;
+        }
+        .dropdownHide {
+            display: none;
+        }
+        .btnHide {
+            display: none;
+        }
+    </style>
+    <script>
+        var subjectNotesFromDb = "";
+        var notesForParicularSubject = "";
+    </script>
+    <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+    <script type="text/javascript" src="lib/air/AIRIntrospector.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/NotesJs.js"></script>
+    <script src="assets/js/jquery.contextMenu.js"></script>
+    <script src="js/dataBaseJs.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 style="float: left; margin-left: 6%; color: black">Notes</h1>
+        <div class="sidebar-nav">
+            <ul>
+                <li><a href="DesktopApp.html" class="home">Home</a></li>
+                <li><a href="Calender.html" class="time-table">Time Table</a></li>
+                <li><a href="OnlineTest.html" class="online-test">Online Test</a></li>
+                <li><a href="QueryBlogs.html" class="query-logs">Query logs</a></li>
+                <li><a href="EBook.html" class="e-books">E-Books</a></li>
+                <!--<li><a href="Notes.html" class="activenavigation notes">Notes</a></li>-->
+            </ul>
+        </div>
+
+        <div class="wrapper" style="margin-top: 50px; width:90%">
+            <div class="subjectList" style="font-family: Times New Roman;">
+			
+            </div>
+			<input type='button' id='' class='btnBackToSubject' onclick='backToSelectSubject();' name='Submit' value='Back' style="float: right; margin-right: 35px;margin-bottom:10px;"></input>
+			<br>
+            <div class="showNotes">
+            </div>
+            
+        </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.sidebar-nav').hover(
+              function () {
+                  $(this).animate({ right: "0px" });
+              },
+              function () {
+                  $(this).animate({ right: "-220px" });
+              }
+          );
+        $('.showNotes').addClass('showNotesHide');
+        $('.btnBackToSubject').addClass('btnHide');
+        doLoad();
+        subjectNotesFromDb = doShowDropDownNotesSubjectOption();
+        assignSubjectToDropDown(subjectNotesFromDb);
+        notesForParicularSubject = doShowNotesFroParticularSub();		
+    });
+</script>
+
+
+

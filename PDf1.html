@@ -1,0 +1,189 @@
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="assets/css/popup.css" />
+    <link href="assets/css/bootstrap.css" rel='stylesheet' />
+    <link href="assets/css/custom.css" rel='stylesheet' />
+    <link rel="stylesheet" href="assets/css/onLineTestStyle.css" />
+	<link rel="stylesheet" href="assets/css/jquery.contextMenu.css" />
+    <script>
+        var clickedSub = "";
+    </script>
+    <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+   <!--<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script>-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/EBookPopUp.js"></script>
+    <script src="js/eBook.js"></script>
+    <script src="assets/js/jquery.contextMenu.js"></script>
+    <script src="js/dataBaseJs.js"></script>
+
+    <style type="text/css">
+        /* popup_box DIV-Styles*/
+        #popup_box {
+            display: none; /* Hide the DIV */
+            position: fixed;
+            _position: absolute; /* hack for internet explorer 6 */
+            height: 300px;
+            width: 600px;
+            background: #FFFFFF;
+            left: 300px;
+            top: 150px;
+            z-index: 100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+            margin-left: 15px;
+            /* additional features, can be omitted */
+            border: 2px solid #ff0000;
+            padding: 15px;
+            font-size: 15px;
+            -moz-box-shadow: 0 0 5px #ff0000;
+            -webkit-box-shadow: 0 0 5px #ff0000;
+            box-shadow: 0 0 5px #ff0000;
+        }
+
+        #container {
+            background: #d2d2d2; /*Sample*/
+            width: 100%;
+            height: 100%;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* This is for the positioning of the Close Link */
+        #popupBoxClose {
+            font-size: 20px;
+            line-height: 15px;
+            right: 5px;
+            top: 5px;
+            position: absolute;
+            color: #6fa5e2;
+            font-weight: 500;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // When site loaded, load the Popupbox First
+            //  loadPopupBox();
+           
+         
+            $('#popupBoxClose').click(function () {
+                unloadPopupBox();
+            });
+
+            $('#container').click(function () {
+                //  unloadPopupBox();
+            });
+
+            function unloadPopupBox() {    // TO Unload the Popupbox
+                $('#popup_box').fadeOut("slow");
+                $("#container").css({ // this is just for style
+                    "opacity": "1"
+                });
+            }
+
+            function loadPopupBox() {    // To Load the Popupbox
+                $('#popup_box').fadeIn("slow");
+                //$("#container").css({ // this is just for style
+                //    "opacity": "0.3"
+                //});
+            }
+
+            function findNearest(el, tag) {
+                while (el && el.tagName && el.tagName !== tag.toUpperCase()) {
+                    el = el.nextSibling();
+                } return el;
+            }
+			$.contextMenu({
+					selector: '.main-container',
+					callback: function(key, options){
+				    var keyname = key;
+					if (keyname == 'savenote'){
+					var selectedText = window.getSelection();
+					//air.Introspector.Console.log(window.getSelection().getRangeAt(0).startContainer.parentNode);
+					if (selectedText == ''){
+						alert('Select the Text');
+					}
+					else{
+						var parentEl = null, sel;
+						if (window.getSelection){
+							sel = window.getSelection();
+							var ChapterName = $('.page1').contents()[0].innerHTML;
+							sel = window.getSelection();
+							var parentValue = $(".hiddenFieldChap", window.parent.document).text();
+							$(".chapterNo").val(parentValue);
+							$(".chapterName").val(ChapterName);
+							$(".note").val(sel);
+							//loadPopupBox();
+							saveNote(""+sel);
+							}
+						}
+					}
+					if (keyname == "highlight"){
+						getTextHighlight('#ff0');
+					}
+					},
+					items:{
+						"savenote":{
+							name: "Save Note", icon: "Save Note"
+						},
+						"highlight":{
+							name: "Highlight Text", icon: "Highlight Text"
+						},
+					}
+				});
+            $.contextMenu({
+                selector:'img',
+                callback: function(key, options){
+					if(key=='saveimage')
+				    var parentValueSub = $(".hiddenFieldSub", window.parent.document).text();
+					var ChapterName = $('.page1').contents()[0].innerHTML;
+                    saveImageData(parentValueSub,ChapterName,$(this));
+                },
+                items: {
+                    'saveimage': { name:'Save Image',icon:'Save Image'},
+                }
+            });
+        });
+    </script>
+</head>
+<body id="container">
+    <div id="popup_box" style="width: 700px; margin-left: -40px; height: 500px;">
+        <!-- OUR PopupBox DIV-->
+        <br />
+        Chapter Name: <input type="text" class="chapterName" disabled style="width: 400px;"><br /><br /> 
+        Chapter No:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="chapterNo" disabled style="width: 400px;"><br /><br />
+        Topic: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="topic" style="width: 400px;"><br /><br />
+        SubTopic:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="subTopic"><br /><br />
+
+        Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="width: 400px;" class="note" disabled /><br /><br />
+        <input type="button" class="saveNote" onclick="saveNote();" value="Save Notes" />
+        <a id="popupBoxClose">Close</a>
+    </div>
+    <div class='main-container' style='background-color: gray; overflow: scroll; height:100%;' id='Editor'>
+	<div class='page1' style='width: 98%; margin: 10px 7px auto; padding: 5px; background-color: white;'>
+	</div>
+   </div>
+</body>
+</html>
+<script>
+    function saveNote(tempText) {
+        if ($(".chapterName").val() == "" || $(".chapterNo").val() == "") {
+            alert("Enter all the fields");
+        }
+        else {
+            var parentValueSub = $(".hiddenFieldSub", window.parent.document).text();
+            window.parent.callFromChild(parentValueSub, $(".chapterName").val(), $(".chapterNo").val(), tempText);//$(".note").val());
+            alert("Note Saved Sucessfully");
+			/*$('#popup_box').fadeOut("slow");
+                $("#container").css({ // this is just for style
+                    "opacity": "1"
+                });*/
+        }
+    }
+    $(document).on('click', '#linkClick', function (e) {
+        e.preventDefault();
+        window.parent.openExternalURL(this.href);
+    });
+   
+</script>

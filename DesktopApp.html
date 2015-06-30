@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script>
+        var globalUserId = "";
+        var globalStudentStandard = "";
+        var globalStudentName = "";
+    </script>
+    <script src="lib/servicemonitor.swf" type="application/x-shockwave-flash"></script>
+    <script src="assets/js/jquery-1.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var jQ3 = $.noConflict(true);
+    </script>
+    <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+    <!--<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script>-->
+    <script type="text/javascript" src="js/url.js"></script>
+    <script type="text/javascript" src="js/dataBaseJs.js"></script>
+    <script type="text/javascript" src="assets/js/json.js"></script>
+    <script type="text/javascript" src="js/DesktopAppJs.js"></script>
+	<script type="text/javascript" src="js/loginJs.js"></script>
+	<script type="text/javascript" src="js/forSettingBackround.js"></script>
+	<link rel="stylesheet" href="assets/css/jquery.contextMenu.css" /><!-- css for right click menu -->
+</head>
+<body onload='nativeWindow.maximize();'>
+    <!-- <img src="assets/images/right-side-img.png" alt="right side image" style="position: absolute; right: 0; bottom: 0;" /> -->
+    <img class="class-for-right-click-menu" src="" alt="left side image" style="position: absolute; width: 100%; height: 100%; left: 0; bottom: 0;"" />
+    <div class="wrapper">
+        <div class="userHeading" style="padding-bottom: 3px;">
+            <div style="float: left; margin-left: 8%; width: 300px; height: 300px; position:relative; left: -60px; text-align: center; background: url('assets/images/thofday-left.png');background-repeat:no-repeat;">
+                <label id="factOfMatter" style="display:block; height: 200px; width: 200px; margin: 55px auto; overflow:auto;"></label>
+            </div>
+            <div style="float: left; margin-left: 16%">
+                <label id="currentUser"></label>
+            </div>
+            <div style="float: left; margin-left: 40%; width: 300px; height: 250px; position:relative; top: -20px; text-align: center; background: url('assets/images/thofday-left.png');background-repeat:no-repeat;">
+                <label id="thoughtOfTheDay" style="display:block; height: 200px; width: 200px; margin: 55px auto; overflow:auto;"></label>
+            </div>
+        </div>
+        <div class="slate-box-wrap">
+            <ul class="slat-nav">
+                <li class="navigationCalendar"><a href="Calender.html" style="text-decoration: none;"><span style="position: absolute; top: 8px; width: 150px; color: #4e1e1a; font-size: 18px;">Time Table</span></a></li>
+            </ul>
+            <ul class="slate-nav-sec">
+                <li class="navigationQueryLog"><a href="QueryBlogs.html" style="text-decoration: none;"><span style="position: absolute; top: 8px; width: 180px; color: #4e1e1a; font-size: 18px;">Query logs</span></a></li>
+            </ul>
+            <ul class="slate-nav-three">
+                <li class="navigationOnlineTest"><a href="OnlineTest.html" style="text-decoration: none;"><span style="position: absolute; top: 3px; width: 140px; color: #efc8a9; font-size: 18px;">Online Test</span></a></li>
+            </ul>
+            <ul class="slate-nav-four">
+                <li class="navigationEbbok"><a href="EBook.html" style="text-decoration: none;"><span style="position: absolute; top: 3px; width: 80px; left: -5px; color: #efc8a9; font-size: 18px;">eBooks</span></a></li>
+            </ul>
+            <ul class="slate-nav-five">
+                <li class="navigationLogin" s><a href="Login.html" style="text-decoration: none;"><span style="position: absolute; top: 3px; width: 180px; left: -5px; color: #efc8a9; font-size: 18px;">Switch User</span></a></li>
+            </ul>
+            <ul class="slate-nav-six">
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+	<script src="assets/js/jquery.contextMenu.js"></script><!-- js for right click menu -->
+	<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+    <script>
+        $('.navigationCalendar').click(function () {
+            window.location.href = 'Calender.html';
+        });
+        $('.navigationQueryLog').click(function () {
+            window.location.href = 'QueryBlogs.html';
+        });
+        $('.navigationOnlineTest').click(function () {
+            window.location.href = 'OnlineTest.html';
+        });
+        $('.navigationEbbok').click(function () {
+            window.location.href = 'EBook.html';
+        });
+        $('.navigationLogin').click(function () {
+            window.location.href = 'Login.html';
+        });
+
+        $(window).load(function () {
+            doLoad();
+			loadBackground();
+            document.getElementById("currentUser").innerHTML = "Welcome " + globalStudentName;
+
+
+            var thought = doGetThoughtOfTheDay();
+            if (thought) {
+				for (i = 0; i < 1; i++) {
+				    var randomPosition = Math.floor(Math.random() * thought.length);
+					var selected = thought.splice(randomPosition, 1);
+					document.getElementById("thoughtOfTheDay").innerHTML = selected[i].Thought;
+				}
+            }
+            var fact = doGetFactOfMatter();
+            if (fact) {
+				for (i = 0; i < 1; i++) {
+					var randomPosition1 = Math.floor(Math.random() * fact.length);
+					var selected1 = fact.splice(randomPosition1, 1);
+					//air.Introspector.Console.log(selected1);
+					document.getElementById("factOfMatter").innerHTML = selected1[i].Fact;
+				}
+            }
+
+
+            $('.slat-nav li, .slate-nav-sec li, .slate-nav-three li, .slate-nav-four li, .slate-nav-five li').mouseenter(function () {
+                $(this).animate({ 'margin-top': '20' });
+            });
+            $('.slat-nav li, .slate-nav-sec li, .slate-nav-three li, .slate-nav-four li').mouseleave(function () {
+                $(this).animate({ 'margin-top': '40' });
+            });
+            $('.slate-nav-five li').mouseleave(function () {
+                $(this).animate({ 'margin-top': '60' });
+            });
+            setInterval(function () {
+                $('.slate-nav-six').slideToggle();
+            }, 100);
+        });
+		//script for handling right click event starts.
+		$(function(){
+    $.contextMenu({
+        selector: '.class-for-right-click-menu', 
+        callback: function(key, options) {
+			setBackground();
+        },
+        items: {"setBackground": {name: "Set Background"}}
+    });});//script for handling right click event ends.*/
+    </script>
+</body>
+</html>
+<script type="text/javascript" src="js/checkForInternetJs.js"></script>

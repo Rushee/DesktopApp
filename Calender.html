@@ -1,0 +1,115 @@
+﻿<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Calendar</title>
+
+    <link rel='stylesheet' type='text/css' href='Calender/libs/css/smoothness/jquery-ui-1.8.11.custom.css'></link>
+    <link rel='stylesheet' type='text/css' href='Calender/jquery.weekcalendar.css'></link>
+    <link rel='stylesheet' type='text/css' href='assets/css/CalenderPopUp.css'></link>
+    <link href="css/style.css" rel='stylesheet'></link>
+    <link href="assets/css/onLineTestStyle.css" rel='stylesheet'></link>
+    <link href="assets/css/CalenderStyle.css" rel='stylesheet'></link>
+    <link rel="stylesheet" type="text/css" href="assets/css/jCal.css"></link>
+	    
+
+    <script>
+        var jsonEventFromDb = [];
+    </script>
+    <script src="lib/servicemonitor.swf" type="application/x-shockwave-flash"></script>
+    <script type='text/javascript' src='Calender/libs/jquery-1.4.4.min.js'></script>
+    <script type='text/javascript' src='Calender/libs/jquery-ui-1.8.11.custom.min.js'></script>
+    <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+    <!--<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script>-->
+    <script src="js/dataBaseJs.js"></script>
+    <script language="JavaScript" type="text/javascript" src="assets/js/jCal.js"></script>
+    <script type='text/javascript' src='Calender/jquery.weekcalendar.js'></script>
+	<script type="text/javascript" src="js/checkForInternetJs.js"></script>
+    <script src="js/calenderJs.js"></script>
+    <script src="assets/js/jquery-1.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var jQ3 = $.noConflict(true);
+    </script>
+    <script type="text/javascript" src="js/checkForInternetJs.js"></script>
+    <style type='text/css'>
+        body {
+            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+            margin: 0;
+        }
+	   .jCalMo .todayDay{
+        background: none repeat scroll 0 0 rgb(0, 143, 214);
+        color:#fff;
+		}
+    </style>
+</head>
+<body onload='nativeWindow.maximize();'>
+    <div class="container">
+        <div class="sidebar-nav" style="z-index: 100">
+            <ul>
+                <li><a href="DesktopApp.html" class="home">Home</a></li>
+                <li><a href="Calender.html" class="activenavigation time-table">Time Table</a></li>
+                <li><a href="OnlineTest.html" class="online-test">Online Test</a></li>
+                <li><a href="QueryBlogs.html" class="query-logs">Query logs</a></li>
+                <li><a href="EBook.html" class="e-books">E-Books</a></li>
+                <!--<li><a href="Notes.html" class="notes">Notes</a></li>-->
+            </ul>
+        </div>
+        <div class="left-panel" style="width: 100%;">
+            <div id='calendar'>
+            </div>
+            <div class="right">
+                <div class="smallCalender">
+                    <table style="width: 100% ! important;">
+                        <tr>
+                            <td align="left" id="calTwo" valign="top" style="">loading calendar two...
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="backToFullCalender">
+                    <input type='button' name='submit' value='Back To Full Week' class='backToFullCalenderButton' />
+                </div>
+                <div class="notification">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="event_edit_container">
+        <form>
+            <input type="hidden" />
+            <ul style="margin-left: -40px;">
+                <li class="popUpLi">
+                    <span class="ui-label">Date: </span><span class="date_holder"></span>
+                </li>
+                <li class="popUpLi">
+                    <label for="start" class="ui-label">Start Time: </label>
+                    <select name="start" class="startTimeOfEvent">
+                        <option value="">Select Start Time</option>
+                    </select>
+                </li>
+                <li class="popUpLi">
+                    <label for="end" class="ui-label">End Time: </label>
+                    <select name="end" class="endTimeOfEvent">
+                        <option value="">Select End Time</option>
+                    </select>
+                </li>
+                <li class="popUpLi">
+                    <label for="title" class="ui-label">Title: </label>
+                    <input type="text" name="title" class="inputTitle" />
+                </li>
+            </ul>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    $('.sidebar-nav').hover(
+             function () {
+                 $(this).animate({ right: "0px" });
+             },
+            function () {
+                $(this).animate({ right: "-220px" });
+            }
+        );
+</script>
+
+

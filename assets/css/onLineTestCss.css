@@ -1,0 +1,29 @@
+.main-divDisplay {
+            display: none;
+        }
+
+        .wrapper {
+            margin-top: -20px;
+            margin-left: 20px;
+            width: 100%;
+        }
+
+        .lang-switcher {
+ float: right;
+ margin-top: -25px; 
+ margin-right: 270px;
+            font-family: Times New Roman;
+        }
+
+        #dropdown {
+            float: right;
+            margin-right: 25%;
+            font-family: inherit;
+        }
+
+        .gridview-wrap {
+            margin-top: 6%;
+            display: block;
+            width: 80%;
+            margin-left: 5%;
+        }
